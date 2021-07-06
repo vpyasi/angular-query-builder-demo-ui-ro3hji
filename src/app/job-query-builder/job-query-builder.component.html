@@ -1,0 +1,41 @@
+<mat-accordion>
+  <mat-expansion-panel [formGroup]="ruleSetForm">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-radio-group aria-label="Select an option" formControlName="operator" (click)="$event.stopPropagation()">
+          <mat-radio-button value="AND">AND</mat-radio-button>
+          <mat-radio-button value="OR">OR</mat-radio-button>
+        </mat-radio-group>
+
+      </mat-panel-title>
+      <mat-panel-description>
+        
+        <button mat-button color="primary" (click)="addRuleSet();$event.stopPropagation()">
+          Add Ruleset
+        </button>
+
+        <button mat-button color="primary" (click)="addRule();$event.stopPropagation()">
+          Add Rule
+        </button>
+
+
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div>
+      <div class="outline rules" *ngFor="let queryForm of rules">
+        <app-query-form [form]="queryForm"></app-query-form>
+      </div>
+
+      <div class="rulesets" *ngFor="let childRuleset of childRuleSets">
+        <app-job-query-builder [ruleSetForm]="childRuleset" ></app-job-query-builder>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<div *ngIf="parentFlag">
+<pre>
+{{ruleSetForm.value | json}}
+</pre>
+</div>
